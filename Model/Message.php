@@ -9,7 +9,7 @@ use Magento\Framework\Model\AbstractExtensibleModel;
 class Message extends AbstractExtensibleModel implements MessageInterface
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function _construct()
     {
@@ -17,7 +17,7 @@ class Message extends AbstractExtensibleModel implements MessageInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getId()
     {
@@ -35,7 +35,7 @@ class Message extends AbstractExtensibleModel implements MessageInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setMessage($message)
     {
@@ -43,7 +43,7 @@ class Message extends AbstractExtensibleModel implements MessageInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getCreatedAt()
     {
@@ -51,7 +51,7 @@ class Message extends AbstractExtensibleModel implements MessageInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setCreatedAt($createdAt)
     {
@@ -59,7 +59,7 @@ class Message extends AbstractExtensibleModel implements MessageInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getUpdatedAt()
     {
@@ -67,7 +67,7 @@ class Message extends AbstractExtensibleModel implements MessageInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setUpdatedAt($updatedAt)
     {
@@ -75,7 +75,7 @@ class Message extends AbstractExtensibleModel implements MessageInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getProductId()
     {
@@ -83,7 +83,7 @@ class Message extends AbstractExtensibleModel implements MessageInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setProductId($productId)
     {
@@ -91,7 +91,7 @@ class Message extends AbstractExtensibleModel implements MessageInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getExtensionAttributes()
     {
@@ -99,7 +99,7 @@ class Message extends AbstractExtensibleModel implements MessageInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setExtensionAttributes(\Danielozano\ProductMessage\Api\Data\MessageExtensionInterface $attributes)
     {
