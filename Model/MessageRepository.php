@@ -54,7 +54,7 @@ class MessageRepository implements MessageRepositoryInterface
      */
     public function save(MessageInterface $message)
     {
-        $message = $this->resourceModel->save($message);
+        $this->resourceModel->save($message);
 
         return $this->getById($message->getId());
     }
