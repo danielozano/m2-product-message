@@ -9,6 +9,8 @@ interface MessageInterface extends CustomAttributesDataInterface
     /**
      * Constants for data array keys
      */
+    const ID = 'entity_id';
+
     const MESSAGE = 'message';
 
     const PRODUCT_ID = 'product_id';
@@ -24,7 +26,7 @@ interface MessageInterface extends CustomAttributesDataInterface
 
     /**
      * @param $id
-     * @return $this
+     * @return void
      */
     public function setId($id);
 
@@ -35,7 +37,7 @@ interface MessageInterface extends CustomAttributesDataInterface
 
     /**
      * @param string $message
-     * @return $this
+     * @return void
      */
     public function setMessage($message);
 
@@ -46,7 +48,7 @@ interface MessageInterface extends CustomAttributesDataInterface
 
     /**
      * @param string $createdAt
-     * @return $this
+     * @return void
      */
     public function setCreatedAt($createdAt);
 
@@ -57,7 +59,7 @@ interface MessageInterface extends CustomAttributesDataInterface
 
     /**
      * @param string $updatedAt
-     * @return $this
+     * @return void
      */
     public function setUpdatedAt($updatedAt);
 
@@ -68,7 +70,7 @@ interface MessageInterface extends CustomAttributesDataInterface
 
     /**
      * @param int $productId
-     * @return $this
+     * @return void
      */
     public function setProductId($productId);
 
@@ -79,7 +81,7 @@ interface MessageInterface extends CustomAttributesDataInterface
 
     /**
      * @param MessageExtensionInterface $attributes
-     * @return $this
+     * @return void
      */
     public function setExtensionAttributes(\Danielozano\ProductMessage\Api\Data\MessageExtensionInterface $attributes);
 }

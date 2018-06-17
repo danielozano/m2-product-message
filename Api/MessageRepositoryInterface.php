@@ -8,7 +8,7 @@ use Magento\Framework\Api\SearchCriteriaInterface;
 interface MessageRepositoryInterface
 {
     /**
-     * @param $id
+     * @param int $id
      * @return \Danielozano\ProductMessage\Api\Data\MessageInterface
      */
     public function getById($id);
