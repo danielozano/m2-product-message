@@ -7,6 +7,7 @@ use Danielozano\ProductMessage\Api\MessageRepositoryInterface;
 use Danielozano\ProductMessage\Model\ResourceModel\Message as MessageResourceModel;
 use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\Exception\NoSuchEntityException;
+use Magento\Framework\Exception\StateException;
 
 class MessageRepository implements MessageRepositoryInterface
 {
@@ -60,16 +61,32 @@ class MessageRepository implements MessageRepositoryInterface
     }
 
     /**
-     * @param MessageInterface $message
-     * @throws \Exception
+     * {@inheritdoc}
      */
     public function delete(MessageInterface $message)
     {
-        $this->resourceModel->delete($message);
+        try {
+            $this->resourceModel->delete($message);
+        } catch (\Exception $e) {
+            throw new StateException(__('Unable to delete message %1', $message->getId()));
+        }
+
+        return true;
     }
 
     /**
-     * {@inheritcod}
+     * {@inheritdoc}
+     */
+    public function deleteById($id)
+    {
+        /** @var MessageInterface $message */
+        $message = $this->getById($id);
+
+        return $this->delete($message);
+    }
+
+    /**
+     * {@inheritdoc}
      */
     public function getList(SearchCriteriaInterface $searchCriteria)
     {
