@@ -25,7 +25,7 @@ interface MessageInterface extends CustomAttributesDataInterface
     public function getId();
 
     /**
-     * @param $id
+     * @param int $id
      * @return void
      */
     public function setId($id);
