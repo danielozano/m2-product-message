@@ -21,9 +21,15 @@ interface MessageRepositoryInterface
 
     /**
      * @param \Danielozano\ProductMessage\Api\Data\MessageInterface $message
-     * @return void
+     * @return bool Will return true if deleted
      */
     public function delete(MessageInterface $message);
+
+    /**
+     * @param int $id
+     * @return bool Will return true if deleted
+     */
+    public function deleteById($id);
 
     /**
      * @param \Magento\Framework\Api\SearchCriteriaInterface $searchCriteria
