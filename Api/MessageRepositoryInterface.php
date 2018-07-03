@@ -33,7 +33,7 @@ interface MessageRepositoryInterface
 
     /**
      * @param \Magento\Framework\Api\SearchCriteriaInterface $searchCriteria
-     * @return \Danielozano\ProductMessage\Api\MessageSearchResultInterface
+     * @return \Danielozano\ProductMessage\Api\Data\MessageSearchResultInterface
      */
     public function getList(SearchCriteriaInterface $searchCriteria);
 }

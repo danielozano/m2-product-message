@@ -1,6 +1,6 @@
 <?php
 
-namespace Danielozano\ProductMessage\Api;
+namespace Danielozano\ProductMessage\Api\Data;
 
 use Magento\Framework\Api\SearchResultsInterface;
 
