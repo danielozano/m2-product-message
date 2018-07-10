@@ -6,7 +6,8 @@ use Danielozano\ProductMessage\Api\Data\MessageInterface;
 use Danielozano\ProductMessage\Api\Data\MessageSearchResultInterfaceFactory;
 use Danielozano\ProductMessage\Api\MessageRepositoryInterface;
 use Danielozano\ProductMessage\Model\ResourceModel\Message as MessageResourceModel;
-use Magento\Framework\Api\Search\FilterGroup;
+use Magento\Framework\Api\ExtensionAttribute\JoinProcessorInterface;
+use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
 use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Exception\StateException;
@@ -34,7 +35,12 @@ class MessageRepository implements MessageRepositoryInterface
     protected $collectionFactory;
 
     /**
-     * @var \Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface
+     * @var JoinProcessorInterface
+     */
+    protected $extensionAttributesJoinProcessor;
+
+    /**
+     * @var CollectionProcessorInterface
      */
     private $collectionProcessor;
 
@@ -44,14 +50,16 @@ class MessageRepository implements MessageRepositoryInterface
      * @param MessageResourceModel $resourceModel
      * @param MessageResourceModel\CollectionFactory $collectionFactory
      * @param MessageSearchResultInterfaceFactory $searchResultFactory
-     * @param \Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface $collectionProcessor
+     * @param CollectionProcessorInterface $collectionProcessor
+     * @param JoinProcessorInterface $extensionAttributesJoinProcessor
      */
     public function __construct(
         MessageFactory $messageFactory,
         MessageResourceModel $resourceModel,
         MessageResourceModel\CollectionFactory $collectionFactory,
         MessageSearchResultInterfaceFactory $searchResultFactory,
-        \Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface $collectionProcessor
+        CollectionProcessorInterface $collectionProcessor,
+        JoinProcessorInterface $extensionAttributesJoinProcessor
 
     ) {
         $this->messageFactory = $messageFactory;
@@ -59,6 +67,7 @@ class MessageRepository implements MessageRepositoryInterface
         $this->collectionProcessor = $collectionProcessor;
         $this->collectionFactory = $collectionFactory;
         $this->searchResultFactory = $searchResultFactory;
+        $this->extensionAttributesJoinProcessor = $extensionAttributesJoinProcessor;
     }
 
     /**
@@ -121,7 +130,9 @@ class MessageRepository implements MessageRepositoryInterface
      */
     public function getList(SearchCriteriaInterface $searchCriteria)
     {
+        /** @var MessageResourceModel\Collection $collection */
         $collection = $this->collectionFactory->create();
+        $this->extensionAttributesJoinProcessor->process($collection);
 
         $collection->addFieldToSelect('*');
         $this->collectionProcessor->process($searchCriteria, $collection);
