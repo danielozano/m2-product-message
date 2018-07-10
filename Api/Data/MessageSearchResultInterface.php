@@ -13,7 +13,7 @@ interface MessageSearchResultInterface extends SearchResultsInterface
 
     /**
      * @param \Danielozano\ProductMessage\Api\Data\MessageInterface[] $items
-     * @return \Magento\Framework\Api\SearchResultsInterface
+     * @return \Magento\Framework\Api\SearchResultInterface
      */
     public function setItems(array $items);
 }

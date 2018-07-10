@@ -3,8 +3,10 @@
 namespace Danielozano\ProductMessage\Model;
 
 use Danielozano\ProductMessage\Api\Data\MessageInterface;
+use Danielozano\ProductMessage\Api\Data\MessageSearchResultInterfaceFactory;
 use Danielozano\ProductMessage\Api\MessageRepositoryInterface;
 use Danielozano\ProductMessage\Model\ResourceModel\Message as MessageResourceModel;
+use Magento\Framework\Api\Search\FilterGroup;
 use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Exception\StateException;
@@ -21,13 +23,42 @@ class MessageRepository implements MessageRepositoryInterface
      */
     protected $resourceModel;
 
+    /**
+     * @var MessageSearchResultInterfaceFactory
+     */
+    protected $searchResultFactory;
+
+    /**
+     * @var MessageResourceModel\CollectionFactory
+     */
+    protected $collectionFactory;
+
+    /**
+     * @var \Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface
+     */
+    private $collectionProcessor;
+
+    /**
+     * MessageRepository constructor.
+     * @param MessageFactory $messageFactory
+     * @param MessageResourceModel $resourceModel
+     * @param MessageResourceModel\CollectionFactory $collectionFactory
+     * @param MessageSearchResultInterfaceFactory $searchResultFactory
+     * @param \Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface $collectionProcessor
+     */
     public function __construct(
         MessageFactory $messageFactory,
-        MessageResourceModel $resourceModel
+        MessageResourceModel $resourceModel,
+        MessageResourceModel\CollectionFactory $collectionFactory,
+        MessageSearchResultInterfaceFactory $searchResultFactory,
+        \Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface $collectionProcessor
 
     ) {
         $this->messageFactory = $messageFactory;
         $this->resourceModel = $resourceModel;
+        $this->collectionProcessor = $collectionProcessor;
+        $this->collectionFactory = $collectionFactory;
+        $this->searchResultFactory = $searchResultFactory;
     }
 
     /**
@@ -90,6 +121,17 @@ class MessageRepository implements MessageRepositoryInterface
      */
     public function getList(SearchCriteriaInterface $searchCriteria)
     {
-        // TODO: Implement getList() method.
+        $collection = $this->collectionFactory->create();
+
+        $collection->addFieldToSelect('*');
+        $this->collectionProcessor->process($searchCriteria, $collection);
+
+        $collection->load();
+        $searchResult = $this->searchResultFactory->create();
+        $searchResult->setSearchCriteria($searchCriteria);
+        $searchResult->setItems($collection->getItems());
+        $searchResult->setTotalCount(intval($collection->count()));
+
+        return $searchResult;
     }
 }
