@@ -3,4 +3,7 @@
     <preference for="Danielozano\ProductMessage\Api\Data\MessageInterface" type="Danielozano\ProductMessage\Model\Message"/>
     <preference for="Danielozano\ProductMessage\Api\MessageRepositoryInterface" type="Danielozano\ProductMessage\Model\MessageRepository"/>
     <preference for="Danielozano\ProductMessage\Api\Data\MessageSearchResultInterface" type="Danielozano\ProductMessage\Model\MessageSearchResult"/>
+    <type name="Magento\Catalog\Api\ProductRepositoryInterface">
+        <plugin name="danielozano_productmessage_plugin_product_repository" type="Danielozano\ProductMessage\Plugin\ProductRepositoryPlugin"/>
+    </type>
 </config>
